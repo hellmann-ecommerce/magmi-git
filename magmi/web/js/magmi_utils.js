@@ -1,13 +1,17 @@
+var rawurlencode=function(str) {
+    str = (str+'').toString();        
+    return encodeURIComponent(str).replace(/!/g, '%21').replace(/'/g, '%27').replace(/\(/g, '%28').replace(/\)/g, '%29').replace(/\*/g, '%2A');
+}
 var magmi_multifield=function(listfield,dyncontainer,linetpl,vlist)
 {
 	this.vlist=vlist;
 	this.listfield=listfield;
 	this.dyncontainer=dyncontainer;
 	this.linetpl=linetpl;
-	
+
 	this.getinputline=function(fieldname,dvalue,linetpl)
 	{
-		linetpl=linetpl.replace('{fieldname}',fieldname).replace('{value}',dvalue).replace('{fieldname.enc}',encodeURIComponent(fieldname));
+		linetpl=linetpl.replace('{fieldname}',fieldname).replace('{value}',dvalue).replace('{fieldname.enc}',rawurlencode(fieldname));
 
 		return linetpl;
 	};
@@ -22,7 +26,7 @@ var magmi_multifield=function(listfield,dyncontainer,linetpl,vlist)
 	 	var arr=value.split(",");
 	 	for(var i=0;i<arr.length;i++)
 	 	{
-	 	 arr[i]=arr[i].trim();	
+	 	 arr[i]=arr[i].trim();
 	 	}
 	  	var farr=[];
 	 	 arr.each(function(it){
